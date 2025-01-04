@@ -1,0 +1,17 @@
+class Solution:
+    def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        next_greater = {}
+        stack = []
+        
+        # Process nums2 to find the next greater element for each number
+        for num in nums2:
+            while stack and stack[-1] < num:
+                next_greater[stack.pop()] = num
+            stack.append(num)
+        
+        # Remaining elements in the stack have no greater element
+        for num in stack:
+            next_greater[num] = -1
+        
+        # Build the result for nums1
+        return [next_greater[num] for num in nums1]
